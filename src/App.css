@@ -1,32 +1,143 @@
+@import url("https://use.fontawesome.com/releases/v5.3.1/css/all.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  color: #d5dfe1;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #000000;
+}
+
+#root {
+  height: 100%;
+}
+
 .App {
   text-align: center;
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.navbar {
+  background-color: black;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.main {
+  background-color: #272c30;
+  display: flex;
+  justify-content: space-evenly;
+  height: 95%;
+}
+.small-images {
+  width: 50px;
+  height: 50px;
+}
+.small-images-round {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.large-images {
+  width: 200px;
+  height: 200px;
+}
+.inline {
+  display: inline-block
+}
+.container {
+  width: 33.33%;
+  padding-top: 10px;
+}
+.demo-track-list {
+  margin: auto;
+  width: 200px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.player {
+  margin: 5px;
+}
+.center {
+  text-align: center;
+  background-color: #22272a;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.right {
+  background-color: #1d2224;
+}
+.search-output {
+  border-radius: 0;
+  border: 1px solid #4e585e;
+  width: 40%;
+  background-color: #22272a;
+  color: #889fad;
+  text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search-input {
+  width: 40%;
+  background: transparent;
+  color:#d5dfe1;
+  border: none;
+  border-bottom: 1px solid white;
+  padding-left: 5px;
+}
+.mybtn {
+  background-color: #22272a;
+  color: #40505a;
+}
+.artist-list {
+  margin: 5px;
+}
+
+.artist-list:hover .icon {
+	width: 40px;
+	opacity: 1.0;
+}
+
+.similar-artists {
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.playlist {
+  margin: auto;
+  display: flex;
+}
+
+.artist-name {
+  color: rgb(68, 68, 131);
+}
+
+.track-name {
+  font-style: italic;
+  color: rgb(109, 109, 54);
+}
+.break {
+  height: 48px;
+}
+.now-playing {
+  padding-top: 20px;
+}
+.icon {
+  width: 0;
+  opacity: 0;
+  color: grey;
+}
+
+.icon:hover {
+  color: red;
+  cursor: pointer;
 }
