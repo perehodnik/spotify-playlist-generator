@@ -11,13 +11,13 @@ class UserInfo extends Component {
         super(props);
         this.state = {};
     }
+        
     componentDidMount(){
+        console.log("Userinfo:");
         console.log(this.props.loginStatus);
         if (this.props.loginStatus.isLoggedIn) {
           spotifyApi.setAccessToken(this.props.loginStatus.token);
         }
-      }
-    componentDidMount(){
         this.getUserInfo();
     }
     getUserInfo() {

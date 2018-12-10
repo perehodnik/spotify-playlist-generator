@@ -40,7 +40,7 @@ class ArtistList extends Component {
                         ));
             let mergedtracklist = [].concat.apply([], tracklist).sort(function(obj1, obj2) {
                 return obj2.popularity - obj1.popularity;
-            });
+            }).slice(0, 15);
             return (mergedtracklist);
         } catch (error) {
             console.log(error)

@@ -5,6 +5,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import SearchOutput from './SearchOutput';
 import SimilarArtists from './SimilarArtists';
 import Player from './Player';
+import * as apiCalls from '../api/api';
 
 
 const spotifyApi = new SpotifyWebApi();
@@ -13,14 +14,11 @@ class Playlists extends Component {
     constructor(props){
         super(props);
         this.state = {
-            currentPlaying: -1
+            currentPlaying: -1,
+            playlistName: ''
         }
     }
-    componentWillReceiveProps(props){
-        if (props.loginStatus.isLoggedIn) {
-          spotifyApi.setAccessToken(props.loginStatus.token);
-        }
-    }
+
     playing = (index) => {
         this.setState( {currentPlaying: index});
     }
@@ -36,12 +34,20 @@ class Playlists extends Component {
             }
           );
     }
-    savePlaylist() {
-        spotifyApi.createPlaylist({name: "test"}).then(
+    async savePlaylist() {
+        spotifyApi.createPlaylist({name: this.state.playlistName, public: false}).then(
             data => {
-              console.log(data);
+              let tracks = this.props.playlist.map(track => track.uri);
+              spotifyApi.addTracksToPlaylist(data.id,tracks).then( result => {
+                alert("Playlist successfully saved!");
+              }
+              );
             }
           );
+        this.getPlaylists(this.props.loginStatus.user.id);
+    }
+    savePlaylistName(e) {
+        this.setState({playlistName: e.target.value});
     }
     componentDidMount() {
             this.getPlaylists(this.props.loginStatus.user.id);
@@ -59,6 +65,12 @@ class Playlists extends Component {
                 }
                 </div>
                 <div className="container center">
+                    <input className="search-input"
+                        type="text" 
+                        onKeyUp={this.savePlaylistName.bind(this)}
+                        placeholder="Playlist name"
+                    />
+                    <button onClick={this.savePlaylist.bind(this)} type="button" class="btn btn-outline-dark mybtn artist-list">Save the playlist</button>
                     {this.props.playlist.map((track,index) =>(
                         <div className="playlist">
                             <Player 
@@ -71,7 +83,6 @@ class Playlists extends Component {
                         </div>
                     )
                     )}
-                    <button onClick={this.savePlaylist.bind(this)}type="button" class="btn btn-outline-dark mybtn artist-list">Generate your playlist</button>
                  </div>
              </>
             );
