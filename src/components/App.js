@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import UserInfo from './UserInfo';
 import ArtistList from './ArtistList';
 import Playlists from './Playlists';
-import * as apiCalls from '../api/api';
 
 
 const spotifyApi = new SpotifyWebApi();
@@ -28,7 +27,6 @@ class App extends Component {
   componentDidMount(){
     if (this.token) {
       this.props.dispatch(setLoginStatus(this.token));
-      apiCalls.setTokenHeader(this.token);
     }
   }
   getHashParams() {
