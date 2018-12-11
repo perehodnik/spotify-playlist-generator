@@ -144,3 +144,7 @@ html, body {
   color: red;
   cursor: pointer;
 }
+.start-over:hover {
+  cursor: pointer;
+  color: rgb(72, 100, 76);
+}

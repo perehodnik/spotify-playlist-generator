@@ -24,9 +24,11 @@ class UserInfo extends Component {
             this.props.dispatch(setUserInfo(data));
           });
     }
+    reloadPage = () => window.location.reload();
     render() {        
         return(
              <div className="navbar">
+                 <div className="start-over" onClick={this.reloadPage}>Start Over</div>
                  <div>Logged in as: {this.state.username}</div>
              </div>
             );
