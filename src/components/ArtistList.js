@@ -7,14 +7,6 @@ import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
 class ArtistList extends Component {
-    constructor(props){
-        super(props);
-    }
-    componentWillReceiveProps(props){
-        if (props.loginStatus.isLoggedIn) {
-          spotifyApi.setAccessToken(props.loginStatus.token);
-        }
-    }
     addArtist(artistId) {
         this.props.dispatch(addArtist(artistId));
     }
@@ -64,6 +56,7 @@ class ArtistList extends Component {
                         key={artist.id}
                     >
                     <img 
+                        alt={artist.name}
                         className="small-images" 
                         src={(artist.images.length === 0)? require('../spotify_icon_black.png') : artist.images[0].url } 
                         title={artist.name}>
@@ -72,8 +65,8 @@ class ArtistList extends Component {
                     </div>))}
                 {this.props.artists.length? 
                 (this.props.showPlaylists? 
-                    <button onClick={this.hidePlaylists.bind(this)} type="button" class="btn btn-outline-dark mybtn artist-list">Go back to editing</button> :
-                    <button onClick={this.generatePlaylist.bind(this)}type="button" class="btn btn-outline-dark mybtn artist-list">Generate your playlist</button>)
+                    <button onClick={this.hidePlaylists.bind(this)} type="button" className="btn btn-outline-dark mybtn artist-list">Go back to editing</button> :
+                    <button onClick={this.generatePlaylist.bind(this)}type="button" className="btn btn-outline-dark mybtn artist-list">Generate your playlist</button>)
                  : null}
                     
             </div>

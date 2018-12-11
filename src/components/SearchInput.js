@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
-import { addSearchResult, addArtist, setShowArtist, setCurrentPlaying } from '../actions'
+import { addSearchResult, addArtist, setShowArtist } from '../actions'
 import SpotifyWebApi from 'spotify-web-api-js';
 import SearchOutput from './SearchOutput';
 import SimilarArtists from './SimilarArtists';
@@ -19,12 +19,11 @@ class SearchInput extends Component {
         }
         this.findArtist = this.findArtist.bind(this);
     }
-    componentWillReceiveProps(props){
-        if (props.loginStatus.isLoggedIn) {
-          spotifyApi.setAccessToken(props.loginStatus.token);
-        }
-        this.setState({showArtist: props.showArtist, currentPlaying: -1});
-        this.getTopTracks(props.showArtist.id);
+    componentWillReceiveProps(nextProps){
+        if (Object.keys(nextProps.showArtist).length > 0 && nextProps.showArtist !== this.state.showArtist) {
+            this.setState({showArtist: nextProps.showArtist, currentPlaying: -1});
+            this.getTopTracks(nextProps.showArtist.id);
+        }        
       }
     findArtist(e) {
         if (e.target.value) {
@@ -40,9 +39,7 @@ class SearchInput extends Component {
         this.props.dispatch(addArtist(artistId));
     }
     showArtist(artist) {
-        // this.setState({showArtist: artist, currentPlaying: -1});
         this.props.dispatch(setShowArtist(artist));
-        // this.props.dispatch(setCurrentPlaying(-1));
     }
     getTopTracks(artistId){
         spotifyApi.getArtistTopTracks(artistId, "US", {limit: 3})
@@ -52,11 +49,9 @@ class SearchInput extends Component {
     }
     playing = (index) => {
         this.setState( {currentPlaying: index});
-        // this.props.dispatch(setCurrentPlaying(index));
     }
     stopped = () => {
         this.setState( {currentPlaying: -1});
-        // this.props.dispatch(setCurrentPlaying(-1));
     }
     render() {        
         return(
@@ -72,7 +67,7 @@ class SearchInput extends Component {
                             key={artist.id}
                             onClick={this.showArtist.bind(this, artist)}
                         >
-                        <button type="button" class="btn btn-light search-output">{artist.name}</button>
+                        <button type="button" className="btn btn-light search-output">{artist.name}</button>
                         </div>))}
                 </div>
                 <div className="container center">
@@ -80,6 +75,7 @@ class SearchInput extends Component {
                     <div className="demo-track-list">
                         {this.state.artistTracks.map((track,index) =>(
                                 <Player 
+                                    key={track.id}
                                     url={track.preview_url} 
                                     playing={this.state.currentPlaying === index} 
                                     setPlaying={this.playing.bind(this, index)} 
@@ -109,7 +105,6 @@ class SearchInput extends Component {
 
 const mapStateToProps = state => {
     return {
-        loginStatus: state.loginStatus,
         searchResult: state.searchResult,
         showArtist: state.showArtist
     };

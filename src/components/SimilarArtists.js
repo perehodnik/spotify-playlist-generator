@@ -43,8 +43,9 @@ class SimilarArtists extends Component {
                 <div className="similar-artists-header">Similar Artists:</div>
                 <div className="similar-artists" >
                     {this.state.similarArtists? this.state.similarArtists.map(artist => (
-                    <div onClick={this.showArtist.bind(this, artist)}>
+                    <div onClick={this.showArtist.bind(this, artist)} key={artist.id}>
                         <img 
+                            alt={artist.name}
                             className="small-images-round" 
                             src={(artist.images.length === 0)? require('../spotify_icon_black.png') : artist.images[0].url } 
                             title={artist.name}>

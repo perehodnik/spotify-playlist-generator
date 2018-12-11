@@ -9,6 +9,7 @@ html, body {
   height: 100%;
   font-family: 'Roboto', sans-serif;
   color: #d5dfe1;
+  background-color: #3f4041;
 }
 
 ::-webkit-scrollbar {
@@ -97,6 +98,8 @@ html, body {
   background-color: #22272a;
   color: #40505a;
 }
+
+
 .artist-list {
   margin: 5px;
 }

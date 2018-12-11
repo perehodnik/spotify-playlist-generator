@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../App.css';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SearchInput from './SearchInput';
-import SearchOutput from './SearchOutput';
 import { setLoginStatus } from '../actions';
 import { connect } from 'react-redux';
 import UserInfo from './UserInfo';
@@ -19,6 +18,7 @@ class App extends Component {
     super();
     this.params = this.getHashParams();
     this.token = this.params.access_token;
+    spotifyApi.setAccessToken(this.token);
     this.state = {
       loggedIn: this.token ? true : false,
       searchOutput: [],
@@ -27,7 +27,6 @@ class App extends Component {
   }
   componentDidMount(){
     if (this.token) {
-      spotifyApi.setAccessToken(this.token);
       this.props.dispatch(setLoginStatus(this.token));
       apiCalls.setTokenHeader(this.token);
     }
@@ -59,7 +58,8 @@ class App extends Component {
           </>
         ) :
         (<div>
-          <a href='http://spotify.abishev.me'> Login to Spotify </a>
+          <h2>Please login to continue</h2>
+          <a className="btn btn-outline-dark mybtn" href='http://spotify.abishev.me/login'> Login with Spotify </a>
          </div>
         )
        }
